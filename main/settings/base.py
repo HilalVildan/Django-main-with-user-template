@@ -23,11 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
 
-
-
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,9 +33,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken', # python manage.py migrate
     
     # Third party apps: 
     'drf_yasg',
+    'dj_rest_auth',
+
+    #my_apps
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -142,4 +142,9 @@ LOGGING = {
             # will not be handled by the django logger. 
         }, 
     }, 
+}
+
+REST_FRAMEWORK = {
+    # Allow post-request without CSRF, so can connection with Token from external service, like Postman:
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication']
 }
